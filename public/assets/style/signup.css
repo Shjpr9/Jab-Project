@@ -1,0 +1,43 @@
+body {
+    background: whitesmoke;
+    font-family: IranianSans;
+}
+
+input {
+    border-radius: 10px;
+    border-color: rgb(33, 36, 41);
+    border-width: 2px;
+}
+
+select {
+    border-radius: 10px;
+    border-color: rgb(33, 36, 41);
+    border-width: 2px;
+}
+
+.error-box {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+h5 {
+    color: rgb(33, 36, 41);
+}
+
+@font-face {
+    font-family: IranianSans;
+    src: url(/assets/fonts/IranianSans.ttf);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

@@ -1,0 +1,29 @@
+body {
+    background: whitesmoke;
+    font-family: IranianSans;
+}
+
+input {
+    border-radius: 10px;
+    border-color: rgb(33, 36, 41);
+    border-width: 2px;
+}
+
+select {
+    border-radius: 10px;
+    border-color: rgb(33, 36, 41);
+    border-width: 2px;
+}
+
+h6 {
+    color: "white";
+}
+
+p {
+    color: rgb(33, 36, 41);
+}
+
+@font-face {
+    font-family: IranianSans;
+    src: url(/assets/fonts/IranianSans.ttf);
+}
