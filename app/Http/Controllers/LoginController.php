@@ -13,25 +13,32 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
 
-        $credentials = Validator::make($request->only(['email', 'password']), [
+        $validator = Validator::make($request->only(['email', 'password']), [
             'email' => 'required|email',
             'password' => 'required'
-        ])->validate();
+        ]);
 
-        // $credentials = $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required'
-        // ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect('success');
+        if ($validator->fails()) {
+            return response()->json([
+                'ok' => false,
+                'details' => $validator->errors()
+            ]);
         }
 
-        return redirect('login')->withErrors('Login Failed! Username or password is incorrect.');
-    }
+        // Attempt to authenticate the user using the provided credentials
+        if (Auth::attempt([
+            'email' => $request->email, 'password' => $request->password
+        ])) {
+            return response()->json([
+                'ok' => true,
+                'message' => 'Login Successful!',
+                'token' => Auth::user()->createToken('auth_token')->plainTextToken
+            ]);
+        }
 
-    // public function index(Request $request) {
-    //     return $request;
-    // }
+        return response()->json([
+            'ok' => false,
+            'message' => 'Invalid Credentials'
+        ]);
+    }
 }

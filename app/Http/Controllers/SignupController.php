@@ -11,24 +11,33 @@ use Illuminate\Support\Str;
 class SignupController extends Controller
 {
     public function signup(Request $request) {
-        $credentials = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'email' => 'bail|required|email|unique:users',
             'username' => 'bail|required|unique:users|min:5|alpha_num:ascii',
             'password' => 'min:8|required',
             'phone' => 'required|numeric|digits:11'
-        ])->validate();
+        ]);
 
-        User::create([
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-            'username' => $request->get('username'),
-            'phone' => $request->get('phone'),
+        if ($validator->fails()) {
+            return response()->json([
+                'ok' => false,
+                'message' => $validator->errors()
+            ]);
+        }
+
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'username' => $request->username,
+            'phone' => $request->phone,
             'remember_token' => Str::random(10),
         ]);
-        return redirect('/login')->with('successSignup', true);
+
+        return response()->json([
+            'ok' => true,
+            'message' => 'User created successfully',
+            'token' => $user->createToken($request->username)->plainTextToken
+        ]);
     }
 
-    public function index(Request $request) {
-        return $request;
-    }
 }
