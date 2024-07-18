@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class SignupController extends Controller
 {
-    public function signup(Request $request) {
+    public function apiSignup(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'bail|required|email|unique:users',
             'username' => 'bail|required|unique:users|min:5|alpha_num:ascii',
@@ -40,4 +40,28 @@ class SignupController extends Controller
         ]);
     }
 
+    public function webSignup(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'bail|required|email|unique:users',
+            'username' => 'bail|required|unique:users|min:5|alpha_num:ascii',
+            'password' => 'min:8|required',
+            'phone' => 'required|numeric|digits:11'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/signup')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'username' => $request->username,
+            'phone' => $request->phone,
+            'remember_token' => Str::random(10),
+        ]);
+
+        return redirect('/login')->with(['successSignup' => true]);
+    }
 }

@@ -22,7 +22,7 @@
     </header>
 
     <div class="container text-center w-50">
-        <form action="/api/v1/signup" method="post">
+        <form action="/signup" method="post">
             @csrf
             <div class="form-group m-auto">
                 <div class="form-control">

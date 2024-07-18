@@ -1,0 +1,20 @@
+body {
+    background: whitesmoke;
+    font-family: IranianSans;
+}
+
+input {
+    border-radius: 10px;
+    border-color: rgb(33, 36, 41);
+    border-width: 2px;
+}
+@font-face {
+    font-family: IranianSans;
+    src: url("/assets/fonts/IranianSans.ttf");
+}
+
+.error-box {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}

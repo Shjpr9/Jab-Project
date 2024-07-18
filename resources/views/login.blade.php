@@ -23,7 +23,7 @@
     </header>
 
     <div class="container text-center w-50">
-        <form action="/api/v1/login" method="POST">
+        <form action="/login" method="POST">
             <div class="form-group m-auto">
                 @csrf
                 <div class="form-control">
@@ -66,7 +66,6 @@
                 @if (session('successSignup'))
                     <p style="color: green">با موفقیت ثبت نام شدید.</p>
                 @endif
-
 
             </div>
         </form>
